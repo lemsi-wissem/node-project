@@ -3,7 +3,6 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const checkConflictMiddleware = require('../middleware/checkConflict');
 const Reservation = require('../models/reservation');
-const User = require('../models/user');
 
 router.post('/reservation', [auth,checkConflictMiddleware], async (req, res) => {
     try {
@@ -80,5 +79,7 @@ router.get('/reservations/room/:id', auth, async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+// Free rooms for a specific date
 
 module.exports = router;

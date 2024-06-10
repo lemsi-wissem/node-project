@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
 const roomRouter = require('./routes/room');
 const reservationRouter = require('./routes/reservation');
+const cors = require('cors');
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use('/auth',authRouter);
 app.use(roomRouter);

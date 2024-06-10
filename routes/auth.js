@@ -28,4 +28,14 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.get('/validate', async (req, res) => {
+    try {
+        const token = req.header('Authorization').replace('Bearer ', '');
+        const user = await User.findByToken(token);
+        res.send(user);
+    } catch (error) {
+        res.status(401).send({error: 'Not authorized to access this resource'});
+    }
+});
+
 module.exports = router;
