@@ -22,6 +22,15 @@ router.get('/room/:id', auth, async (req, res) => {
     }
 });
 
+router.get('/rooms', auth, async (req, res) => {
+    try {
+        const rooms = await Room.find({});
+        res.send(rooms);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 router.patch('/room/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'capacity', 'equipments', 'availability', 'price', 'location', 'image'];
