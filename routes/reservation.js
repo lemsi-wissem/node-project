@@ -6,6 +6,7 @@ const Reservation = require('../models/reservation');
 
 router.post('/reservation', [auth,checkConflictMiddleware], async (req, res) => {
     try {
+        req.body.user = req.user._id;
         const reservation = new Reservation(req.body);
         await reservation.save();
         res.status(201).send(reservation);

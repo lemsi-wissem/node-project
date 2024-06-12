@@ -18,8 +18,11 @@ router.post('/login', async (req, res) => {
         console.log(req.body);
         const {username, password} = req.body;
         const user = await User.findByCredentials(username, password).catch((error) => {
-            return res.status(401).send({error: 'Login failed! Check authentication credentials'});
+            console.log(error);
         });
+        if (!user) {
+            return res.status(401).send({error: 'Login failed! Check authentication credentials'});
+        }
         const token = await user.generateAuthToken();
         res.send({user, token});
     }
